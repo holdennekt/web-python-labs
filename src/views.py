@@ -3,14 +3,17 @@ from flask_smorest import Api
 from src.resources.user import blp as UserBlueprint
 from src.resources.category import blp as CategoryBlueprint
 from src.resources.record import blp as RecordBlueprint
+from src.db import db
 
 app.config["PROPAGATE_EXCEPTIONS"] = True
+app.config["API_TITLE"] = "Lab 2"
+app.config["API_VERSION"] = "v1"
+app.config["OPENAPI_VERSION"] = "3.0.3"
+app.config["OPENAPI_URL_PREFIX"] = "/"
+app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
+app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
-api = Api(app, spec_kwargs={
-  "title":"Lab 2",
-  "version":"v1",
-  "openapi_version": "3.0.3"
-})
+api = Api(app)
 
 api.register_blueprint(UserBlueprint)
 api.register_blueprint(CategoryBlueprint)

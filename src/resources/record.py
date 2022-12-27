@@ -12,13 +12,14 @@ blp = Blueprint("record", __name__, description="records routes")
 @blp.route("/record")
 class RecordList(MethodView):
   @blp.arguments(RecordQuerySchema, location="query", as_kwargs=True)
+  @blp.response(200, RecordSchema(many=True))
   def get(self, user_id, **kwargs):
     category_id = kwargs.get('category_id', None)
     user_records = list(
         filter(
             lambda r: (
                 r["user_id"] == user_id and
-                True if category_id is None else r["category_id"] == category_id
+                (True if category_id is None else r["category_id"] == category_id)
             ),
             records
         )
@@ -26,6 +27,7 @@ class RecordList(MethodView):
     return user_records
 
   @blp.arguments(RecordSchema)
+  @blp.response(201, RecordSchema)
   def post(self, record_data):
     record = {
         "id": str(uuid4()),
@@ -40,6 +42,7 @@ class RecordList(MethodView):
 
 @blp.route("/record/<string:record_id>")
 class Record(MethodView):
+  @blp.response(200, RecordSchema)
   def get(self, record_id):
     record = list(
         filter(

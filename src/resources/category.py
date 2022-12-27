@@ -10,10 +10,12 @@ blp = Blueprint("category", __name__, description="categories routes")
 
 @blp.route("/category")
 class CategoryList(MethodView):
+  @blp.response(200, CategorySchema(many=True))
   def get(self):
     return categories
 
   @blp.arguments(CategorySchema)
+  @blp.response(201, CategorySchema)
   def post(self, category_data):
     category = {"id": str(uuid4()), "name": category_data["name"]}
     categories.append(category)
