@@ -6,7 +6,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes: ["./src:/opt/src"]
     environment:
       PORT: "3000"
+      FLASK_DEBUG: "true"
     ports:
       - "3000:3000"
