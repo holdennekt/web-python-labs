@@ -8,14 +8,15 @@ class RecordModel(db.Model):
   user_id = db.Column(
     db.Integer,
     db.ForeignKey("user.id"),
-    nullable=False
+    nullable=False,
   )
   category_id = db.Column(
     db.Integer,
     db.ForeignKey("category.id"),
-    nullable=False
+    nullable=False,
   )
   sum = db.Column(db.Float(precision=2), nullable=False)
+  currency_id = db.Column(db.Integer, nullable=False)
   created_at = db.Column(db.TIMESTAMP, server_default=functions.now())
 
   user = db.relationship("UserModel", back_populates="records")

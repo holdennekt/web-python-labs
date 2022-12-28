@@ -4,6 +4,7 @@ from flask_smorest import Api
 from src.resources.user import blp as UserBlueprint
 from src.resources.category import blp as CategoryBlueprint
 from src.resources.record import blp as RecordBlueprint
+from src.resources.currency import blp as CurrencyBlueprint
 from src.db import db
 
 app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -25,3 +26,4 @@ with app.app_context():
 api.register_blueprint(UserBlueprint)
 api.register_blueprint(CategoryBlueprint)
 api.register_blueprint(RecordBlueprint)
+api.register_blueprint(CurrencyBlueprint)
