@@ -10,7 +10,6 @@ env:
   PROJECT_ID: airy-decorator-366413
   SERVICE: web-python-labs
   REGION: us-central1
-  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
 jobs:
   deploy:
@@ -42,6 +41,7 @@ jobs:
 
       - name: Build and Push Container
         run: |-
+          export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
           docker build -t "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
           docker push "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
 
