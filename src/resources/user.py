@@ -1,3 +1,4 @@
+import os
 from flask_jwt_extended import create_access_token, jwt_required
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
@@ -24,6 +25,7 @@ class UserList(MethodView):
   @blp.arguments(UserSchema)
   @blp.response(201, TokenSchema)
   def post(self, user_data):
+    print("JWT_SECRET_KEY", os.getenv("JWT_SECRET_KEY"))
     user_data["password"] = pbkdf2_sha256.hash(user_data["password"])
     user = UserModel(**user_data)
     try:
