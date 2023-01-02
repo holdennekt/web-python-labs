@@ -52,7 +52,7 @@ jobs:
           region: ${{ env.REGION }}
           image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
           secrets: |
-            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}:latest
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
