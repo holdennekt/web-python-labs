@@ -26,7 +26,6 @@ class UserList(MethodView):
   @blp.arguments(UserSchema)
   @blp.response(201, TokenSchema)
   def post(self, user_data):
-    app.logger.info(f'JWT_SECRET_KEY {os.getenv("JWT_SECRET_KEY")}')
     user_data["password"] = pbkdf2_sha256.hash(user_data["password"])
     user = UserModel(**user_data)
     try:
