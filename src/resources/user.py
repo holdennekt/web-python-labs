@@ -8,6 +8,7 @@ from passlib.hash import pbkdf2_sha256
 
 from src.models.user import UserModel
 from src.schemas import UserSchema, LoginSchema, TokenSchema
+from src import app
 
 blp = Blueprint("user", __name__, description="users routes")
 
@@ -25,7 +26,7 @@ class UserList(MethodView):
   @blp.arguments(UserSchema)
   @blp.response(201, TokenSchema)
   def post(self, user_data):
-    print("JWT_SECRET_KEY", os.getenv("JWT_SECRET_KEY"))
+    app.logger.info(f'JWT_SECRET_KEY {os.getenv("JWT_SECRET_KEY")}')
     user_data["password"] = pbkdf2_sha256.hash(user_data["password"])
     user = UserModel(**user_data)
     try:
