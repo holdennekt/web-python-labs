@@ -10,6 +10,8 @@ env:
   PROJECT_ID: airy-decorator-366413
   SERVICE: web-python-labs
   REGION: us-central1
+  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+  FLASK_DEBUG: true
 
 jobs:
   deploy:
