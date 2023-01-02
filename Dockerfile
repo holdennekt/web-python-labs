@@ -2,6 +2,7 @@ FROM python:3.10.6-slim
 
 ENV FLASK_APP=src
 ENV FLASK_DEBUG=$FLASK_DEBUG
+ENV JWT_SECRET_KEY=$JWT_SECRET_KEY
 
 COPY requirements.txt /opt
 

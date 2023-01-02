@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from src.db import db
@@ -24,6 +25,7 @@ class CategoryList(MethodView):
 
   @blp.arguments(CategorySchema)
   @blp.response(201, CategorySchema)
+  @jwt_required()
   def post(self, category_data):
     category = CategoryModel(**category_data)
     try:

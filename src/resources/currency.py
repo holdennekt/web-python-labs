@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from src.db import db
@@ -24,6 +25,7 @@ class CurrencyList(MethodView):
 
   @blp.arguments(CurrencySchema)
   @blp.response(201, CurrencySchema)
+  @jwt_required()
   def post(self, currency_data):
     currency = CurrencyModel(**currency_data)
     try:

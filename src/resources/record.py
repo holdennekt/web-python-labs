@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from src.db import db
@@ -21,6 +22,7 @@ class Record(MethodView):
 class RecordList(MethodView):
   @blp.arguments(RecordQuerySchema, location="query", as_kwargs=True)
   @blp.response(200, RecordSchema(many=True))
+  @jwt_required()
   def get(self, user_id, **kwargs):
     category_id = kwargs.get('category_id', None)
     query = RecordModel.query.filter(RecordModel.user_id == user_id)
@@ -30,6 +32,7 @@ class RecordList(MethodView):
 
   @blp.arguments(RecordSchema)
   @blp.response(201, RecordSchema)
+  @jwt_required()
   def post(self, record_data):
     currency_id = record_data.get('currency_id', None)
     if not currency_id:
